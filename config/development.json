@@ -1,0 +1,43 @@
+{
+    "name": "sophos",
+    "REST": "/rest/api",
+    "GraphQL":"/graphql/api",
+    "server" : {
+        "port" : "8080",
+        "ssl": false,
+        "logs" : {
+            "activated" : false,
+            "verbosity" : 0,
+            "path" : "./logs/",
+            "maxFiles" : 3,
+            "jsonFormated" : false,
+            "maxSize" : 1048576,
+            "unhandledExceptions": true
+        },
+        "fork" : {
+            "activated" : false,
+            "workers" : 1
+        }
+    },
+    "database" : {
+        "activated" : false,
+        "encrypted" : false,
+        "host" : "localhost",
+        "port" : 3306,
+        "user" : "potato",
+        "password": "1234",
+        "name" : "databaseName",
+        "schema": ""
+    },
+    "cache" : {
+        "activated" : false,
+        "encrypted" : false,
+        "host" : "localhost",
+        "port" : 3306,
+        "user" : "potato",
+        "password": "1234",
+        "name" : "databaseName"
+    },
+    "modulesFolderName" : "modules",    
+    "modules" : ["authentication"]
+}
