@@ -41,8 +41,8 @@ const UserType = new GraphQLObjectType({
     })
 });
 
-const rootQuery = new GraphQLObjectType({
-    name: 'RootQueryType',
+const UserQuery = new GraphQLObjectType({
+    name: 'UserQuery',
     fields: {
         user: {
             type: UserType,
@@ -63,8 +63,8 @@ const rootQuery = new GraphQLObjectType({
     }
 });
 
-const mutation = new GraphQLObjectType({
-    name: 'Mutation',
+const UserMutation = new GraphQLObjectType({
+    name: 'UserMutation',
     fields: {
         addUser: {
             type: UserType,
@@ -119,6 +119,6 @@ async function getUsers(parentValue, args) {
     return await users;
 }
 module.exports = new GraphQLSchema({
-    query: rootQuery,
-    mutation: mutation
+    query: UserQuery,
+    mutation: UserMutation
 });

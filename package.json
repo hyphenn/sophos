@@ -18,6 +18,9 @@
     "express-graphql": "^0.6.11",
     "graphql": "^0.11.7",
     "mongoose": "^4.12.4",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "socket.io": "^2.0.4",
     "winston": "^2.4.0"
   }
 }

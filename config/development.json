@@ -4,7 +4,11 @@
     "GraphQL":"/graphql/api",
     "server" : {
         "port" : "8080",
-        "ssl": false,
+        "ssl": {
+            "activated" : true,
+            "key" : "./ssl/sophos-key.pem",
+            "cert" : "./ssl/sophos-cert.pem"
+        },
         "logs" : {
             "activated" : false,
             "verbosity" : 0,
@@ -38,6 +42,9 @@
         "password": "1234",
         "name" : "databaseName"
     },
+    "jwt": {
+        "secret": "tbPNA72biH9L4yt8k8jxivhKrmsPoSecTBPCVqhneliRKpxcbZEiAO678wy3eA67"
+    },
     "modulesFolderName" : "modules",    
-    "modules" : ["authentication"]
+    "modules" : ["authentication","user"]
 }

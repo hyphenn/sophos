@@ -1,4 +1,4 @@
-module.exports = function loadModules(server) {
+module.exports = function loadModules(server, db, cache, socket) {
     /* ------------------ INSTANCES ------------------ */
     const config = require('config');
     const logger = require('../logger');
@@ -6,11 +6,11 @@ module.exports = function loadModules(server) {
     /* ------------------ LOADING ENDPOINTS ------------------ */
 
     let modulesRootPath = path.dirname(require.main.filename) + "/" + config.get("modulesFolderName");
-    logger.info("Loading modules :");            
+    logger.info("Loading modules :");
     config.get("modules").forEach(moduleName => {
-        logger.info("---- "+moduleName);
+        logger.info("---- " + moduleName);
         let modulePath = modulesRootPath + "/" + moduleName;
-        require(modulePath)(server);     
+        require(modulePath)(server, db, cache, socket);
     })
-    logger.info("Modules loaded !");            
+    logger.info("Modules loaded !");
 }

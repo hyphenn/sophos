@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
-router.get("/", function(req,res,next){
+const Controller = require("./controller");
+router.get("/", async function(req,res,next){
+    await Controller.getUser();
     res.send("test v1");
 })
 
