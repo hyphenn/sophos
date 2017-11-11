@@ -9,7 +9,6 @@ const server = (function () {
     const http = require('http');
     const https = require('https');
     const fs = require('fs');
-
     if (config.get('server.ssl.activated')) {
         const key = fs.readFileSync(config.get('server.ssl.key'));
         const cert = fs.readFileSync(config.get('server.ssl.cert'));
@@ -28,7 +27,7 @@ const bootstrap = require('./bootstrap');
 const schemaQL = require('./graphql/schema');
 const cache = {};
 const socket = {};
-const db = require('./database/mongodb/mongoose');
+const db = require('./database/mongodb');
 
 app.use(function (req, res, next) {
     let status = {
@@ -57,7 +56,8 @@ app.use(config.get('GraphQL'), expressGraphQL({
     graphiql: true
 }))
 
-bootstrap(app, db ,cache, socket);
+
+bootstrap(app);
 
 /* ------------------ CONFIGURATION ------------------ */
 const port = config.get("server.port");

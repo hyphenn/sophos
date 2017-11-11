@@ -2,6 +2,7 @@
 db.createUser({ user: 'sophos', pwd: '1234', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] });
 */
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 const uri = "mongodb://localhost:27017/sophos";
 const logger = require('../../logger');
 
