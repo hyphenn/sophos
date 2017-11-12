@@ -3,7 +3,6 @@ const router = express.Router();
 const controller = require('./controller');
 
 router.get("/", async function(req,res,next){
-    console.log(controller);
     let result
     try{
         result = await controller.authenticate("nope","and again nope");
