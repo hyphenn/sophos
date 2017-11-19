@@ -1,0 +1,10 @@
+//DOCKER
+docker exec -it mysql-pixie bash
+
+//TODO run as a script in container
+USE mysql;
+DROP USER 'sophos'@'%';
+FLUSH PRIVILEGES;
+CREATE USER 'sophos'@'%' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON pixie.* TO 'sophos'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
