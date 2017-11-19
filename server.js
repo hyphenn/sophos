@@ -1,16 +1,16 @@
 const config = require('config');
 const express = require('express');
-const expressGraphQL = require('express-graphql');
+const logger = require('./logger');
+const bootstrap = require('./bootstrap');
 
-/* ------------------ INSTANCES ------------------ */
+/* ------------------ EXPRESS ------------------ */
 const app = new express();
 
 const server = (function () {
     const http = require('http');
-    const https = require('https');
-    const fs = require('fs');
-
     if (config.get('server.ssl.activated')) {
+        const https = require('https');
+        const fs = require('fs');
         const key = fs.readFileSync(config.get('server.ssl.key'));
         const cert = fs.readFileSync(config.get('server.ssl.cert'));
         return https.createServer({
@@ -23,41 +23,19 @@ const server = (function () {
     }
 })();
 
-const logger = require('./logger');
-const bootstrap = require('./bootstrap');
-const schemaQL = require('./graphql/schema');
-const cache = {};
-const socket = {};
-const db = require('./database/mongodb/mongoose');
 
-app.use(function (req, res, next) {
-    let status = {
-        "disconnected": 0,
-        "connected": 1,
-        "connecting": 2,
-        "disconnecting": 3
-    }
-
-    if (db.connection.readyState === status.disconnected) {
-        return res.status(503).send("Connection to database has been lost.");
-    }
-
-    if (db.connection.readyState === status.connecting) {
-        return res.status(503).send("Please retry later, server is connecting to database.");
-    }
-
-    if (db.connection.readyState === status.disconnecting) {
-        return res.status(503).send("Somthing bad happened, server is disconnecting database.");
-    }
-    return next();
-})
-
-app.use(config.get('GraphQL'), expressGraphQL({
-    schema: schemaQL,
-    graphiql: true
-}))
-
-bootstrap(app, db ,cache, socket);
+//DATABASE CONNECTION
+if(config.get('database.activated')) require('./database/mysql');
+app.use(require('./database/mysql/middleware').databaseHealthcheck);
+//GraphQL
+if (config.get('GraphQL.activated')) {
+    const expressGraphQL = require('express-graphql');
+    const schemaQL = require('./graphql/schema');
+    app.use(config.get('GraphQL'), expressGraphQL({
+        schema: schemaQL,
+        graphiql: true
+    }))
+}
 
 /* ------------------ CONFIGURATION ------------------ */
 const port = config.get("server.port");
@@ -67,6 +45,7 @@ const databaseStat = config.get("database.activated");
 const cacheStat = config.get("cache.activated");
 
 /* ------------------ BOOTSTRAP ------------------ */
+bootstrap(app);
 server.listen(port, function () {
     logger.info('Server is running on port :', port);
     logger.info('SSL activated :', ssl);

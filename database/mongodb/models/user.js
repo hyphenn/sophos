@@ -1,26 +1,40 @@
-const mongoose = require('mongoose');
+const mongoose = require('../index');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  username : String,
-  passsword : String,
-  email : String
+  account: String,
+  passsword: String,
+  email: String
 })
 
-UserSchema.statics.addUser = async function(username, password, email) {
-  return UserSchema.create({ username, password, email });
+UserSchema.statics.addUser = async function (username, password, email) {
+  return this.create({
+    account,
+    password,
+    email
+  });
 };
 
-UserSchema.statics.removeUser = async function(id) {
-  return UserSchema.remove({id});
+UserSchema.statics.removeUser = async function (id) {
+  return this.remove({
+    _id : id
+  });
 };
 
-UserSchema.statics.findByName = async function(username) {
-  return UserSchema.find({ name: new RegExp(name, 'i')});
+UserSchema.statics.findById = async function (id) {
+  return this.find({
+    _id : id
+  });
 };
 
-UserSchema.statics.findAll = async function(username) {
-  return UserSchema.find();
+UserSchema.statics.findByAccountName = async function (accountname) {
+  return this.find({
+    account: new RegExp(accountname, 'i')
+  });
+};
+
+UserSchema.statics.findAll = async function (username) {
+  return this.find();
 };
 
 module.exports = mongoose.model("User", UserSchema);

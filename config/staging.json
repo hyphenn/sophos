@@ -1,43 +1,73 @@
 {
     "name": "sophos",
     "REST": "/rest/api",
-    "GraphQL":"/graphql/api",
-    "server" : {
-        "port" : "8080",
-        "ssl": false,
-        "logs" : {
-            "activated" : false,
-            "verbosity" : 0,
-            "path" : "./logs/",
-            "maxFiles" : 3,
-            "jsonFormated" : false,
-            "maxSize" : 1048576,
+    "GraphQL": {
+        "activated": false,
+        "endpoint": "/graphql/api"
+    },
+    "server": {
+        "port": "5000",
+        "ssl": {
+            "activated": true,
+            "key": "./ssl/sophos-key.pem",
+            "cert": "./ssl/sophos-cert.pem"
+        },
+        "logs": {
+            "activated": false,
+            "verbosity": 0,
+            "path": "./logs/",
+            "maxFiles": 3,
+            "jsonFormated": false,
+            "maxSize": 1048576,
             "unhandledExceptions": true
         },
-        "fork" : {
-            "activated" : false,
-            "workers" : 1
+        "fork": {
+            "activated": false,
+            "workers": 1
         }
     },
-    "database" : {
-        "activated" : false,
-        "encrypted" : false,
-        "host" : "localhost",
-        "port" : 3306,
-        "user" : "potato",
-        "password": "1234",
-        "name" : "databaseName",
-        "schema": ""
+    "database": {
+        "activated": true,        
+        "mysql": {
+            "encrypted": false,
+            "host": "localhost",
+            "port": 3306,
+            "user": "sophos",
+            "password": "1234",
+            "database": "pixie",
+            "charset": "utf8",
+            "timeout": 5000,
+            "pool": {
+                "min" : 0,
+                "max" : 4
+            }
+        },
+        "mongodb": {
+            "encrypted": false,
+            "host": "localhost",
+            "port": 3306,
+            "user": "sophos",
+            "password": "1234",
+            "database": "pixie",
+            "schema": ""
+        }
     },
-    "cache" : {
-        "activated" : false,
-        "encrypted" : false,
-        "host" : "localhost",
-        "port" : 3306,
-        "user" : "potato",
-        "password": "1234",
-        "name" : "databaseName"
+    "cache": {
+        "activated": false,        
+        "redis": {
+            "encrypted": false,
+            "host": "localhost",
+            "port": 3306,
+            "user": "potato",
+            "password": "1234",
+            "name": "databaseName"
+        }
     },
-    "modulesFolderName" : "modules",    
-    "modules" : ["authentication"]
+    "jwt": {
+        "secret": "tbPNA72biH9L4yt8k8jxivhKrmsPoSecTBPCVqhneliRKpxcbZEiAO678wy3eA67"
+    },
+    "modules": {
+        "folder": "modules",
+        "activated": ["authentication", "user"]
+    }
 }

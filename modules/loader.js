@@ -1,4 +1,4 @@
-module.exports = function loader(server, db, cache, socket) {
+module.exports = function loader(server) {
     const subRoot = "/" + this.moduleName;
     const fs = require('fs');
     const path = require('path');
@@ -13,11 +13,7 @@ module.exports = function loader(server, db, cache, socket) {
             let stat = fs.statSync(absolutePath);
             if (stat.isDirectory) {
                 logger.info(config.get("REST") + subRoot + "/" + file);
-                //preloading services, 
-                if(fs.existsSync(absolutePath + "/service/index.js")){
-                    require(absolutePath + "/service").call(null,db, cache, socket);
-                };
-                server.use(config.get("REST") + subRoot + "/" + file, require(absolutePath))
+                server.use(config.get("REST") + subRoot + "/" + file, require(absolutePath));
             }
         }
     });

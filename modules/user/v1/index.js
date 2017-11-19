@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Controller = require("./controller");
 router.get("/", async function(req,res,next){
-    await Controller.getUser();
-    res.send("test v1");
+    return res.send("test v1");
 })
 
 module.exports = router;
