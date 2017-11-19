@@ -1,8 +1,9 @@
 var authenticationService = (function AuthenticationService() {
     var instance;
+
     function init() {
         var service = {};
-        var USER = require('../../database/mongodb/models/user');
+        var USER = require('../../database/mysql/models/user');
         var SOCKET = require('../../socketio');
         var makeResult = require("../helper").makeResult;
         var logger = require('../../logger');
@@ -12,7 +13,11 @@ var authenticationService = (function AuthenticationService() {
             var success;
             var error;
             try {
-                user = await USER.findByAccountName(accountName);
+                user = await USER.findOne({
+                    where: {
+                        account: accountName
+                    }
+                });
                 msg = "User has been authenticated.";
                 success = true;
             } catch (err) {

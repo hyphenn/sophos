@@ -29,6 +29,7 @@
     "database": {
         "activated": true,        
         "mysql": {
+            "dialect": "mysql",
             "encrypted": false,
             "host": "localhost",
             "port": 3306,

@@ -13,17 +13,19 @@
   "author": "Igor BRODZIK",
   "license": "MIT",
   "dependencies": {
-    "bookshelf": "^0.11.1",
     "config": "^1.27.0",
     "express": "^4.16.2",
     "express-graphql": "^0.6.11",
     "graphql": "^0.11.7",
-    "knex": "^0.14.0",
     "mongoose": "^4.12.4",
-    "mysql": "^2.15.0",
+    "mysql2": "^1.5.1",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
+    "sequelize": "^4.22.8",
     "socket.io": "^2.0.4",
     "winston": "^2.4.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^3.1.0"
   }
 }
