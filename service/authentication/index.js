@@ -3,7 +3,7 @@ var authenticationService = (function AuthenticationService() {
 
     function init() {
         var service = {};
-        var USER = require('../../database/mysql/models/user');
+        var USER = require('../../database/mysql/models').User;
         var SOCKET = require('../../socketio');
         var makeResult = require("../helper").makeResult;
         var logger = require('../../logger');

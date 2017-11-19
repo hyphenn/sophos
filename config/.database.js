@@ -1,10 +1,17 @@
-{
+const config = require('config');
+module.exports = {
   "development": {
     "username": "sophos",
     "password": "1234",
     "database": "pixie",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "pool": {
+      "min": config.get('database.mysql.pool.min'),
+      "max": config.get('database.mysql.pool.max'),
+      "acquire": 10000,
+      "idle": 5000
+    },
   },
   "test": {
     "username": "root",
@@ -17,3 +24,4 @@
     "dialect": "mysql"
   }
 }
+

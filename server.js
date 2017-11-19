@@ -25,7 +25,7 @@ const server = (function () {
 
 
 //DATABASE CONNECTION
-if(config.get('database.activated')) require('./database/mysql');
+if(config.get('database.activated')) require('./database/mysql/models');
 app.use(require('./database/mysql/middleware').databaseHealthcheck);
 //GraphQL
 if (config.get('GraphQL.activated')) {

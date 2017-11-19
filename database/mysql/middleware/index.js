@@ -1,6 +1,6 @@
 async function databaseHealthcheck(req, res, next) {
     const logger = require('../../../logger');
-    const db = require('../index.js');
+    const db = require('../models').sequelize;
     try {
         await db.authenticate();
         next();
