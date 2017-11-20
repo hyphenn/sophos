@@ -39,5 +39,21 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  User.beforeCreate(function (user, options) {
+    const EncryptionService = require('../../../service/crypto/index');
+    const logger = require('../../../logger');
+    EncryptionService.encrypt(user.password, 10)
+      .then(encrypted => {
+        user.password = encrypted.hash
+      })
+      .catch(err => {
+        if (err) {
+          logger.error(err);
+          user.activated = false
+        }
+      })
+  })
+  console.log("DEBUG:",User);
   return User;
 };

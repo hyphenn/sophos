@@ -8,3 +8,13 @@ FLUSH PRIVILEGES;
 CREATE USER 'sophos'@'%' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON pixie.* TO 'sophos'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
+
+//SEQUELIZE
+node_modules/.bin/sequelize inti --force (override existing files --- rf. .sequelizerc)
+node_modules/.bin/sequelize db:migrate
+node_modules/.bin/sequelize db:migrate undo
+node_modules/.bin/sequelize db:seed
+node_modules/.bin/sequelize db:seed undo
+
+node_modules/.bin/sequelize model:generate --name myModelName --attributes myAttr:string
+node_modules/.bin/sequelize db:seed:generate --name mySeedFileName
